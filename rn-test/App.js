@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
+import { postsAPI } from './api/get-posts';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,9 +44,10 @@ export default function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('https://my-json-server.typicode.com/Shama8nchez/react-native-test-server/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data));
+    postsAPI
+      .getPosts()
+      .then(result => setPosts(result))
+      .catch(error => Alert.alert(error.message));
   }, []);
 
   return (

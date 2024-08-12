@@ -1,6 +1,6 @@
 import { RESPONSE_CODE, SERVER_URL } from './constants';
 
-export const postsAPI = {
+export const postAPI = {
   async getPosts() {
     const response = await fetch(`${SERVER_URL}/posts`);
     if (response.status === RESPONSE_CODE.SUCCESS) {
@@ -11,4 +11,4 @@ export const postsAPI = {
   },
 };
 
-export default postsAPI;
+export default postAPI;

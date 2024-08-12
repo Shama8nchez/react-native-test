@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { postsAPI } from '../api/posts-api';
+import { postAPI } from '../api/post-api';
 
-export const getPosts = createAsyncThunk('posts/getPosts', postsAPI.getPosts);
+export const getPosts = createAsyncThunk('posts/getPosts', postAPI.getPosts);
 
 const initialState = {
   posts: [],
@@ -23,6 +23,7 @@ export const postsSlice = createSlice({
       })
       .addCase(getPosts.rejected, state => {
         state.isLoading = false;
+        throw new Error('Something is wrong. Try later.');
       });
   },
 });

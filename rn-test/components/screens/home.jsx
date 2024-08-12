@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Button, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
-import { postsAPI } from './api/get-posts';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts } from '../../store/postSlice';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,14 +42,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function App() {
-  const [posts, setPosts] = useState([]);
+export function Home() {
+  const dispatch = useDispatch();
+  const listOfPosts = useSelector(state => state.posts.posts);
 
   useEffect(() => {
-    postsAPI
-      .getPosts()
-      .then(result => setPosts(result))
-      .catch(error => Alert.alert(error.message));
+    dispatch(getPosts()).catch(error => Alert.alert(error.message));
   }, []);
 
   return (
@@ -60,7 +60,7 @@ export default function App() {
       </View>
       <View>
         <Text style={styles.title}>List of posts:</Text>
-        {posts?.map(post => (
+        {listOfPosts?.map(post => (
           <View style={styles.post} key={post.id}>
             <Text style={styles.postTitle}>{post?.title}</Text>
             <Text>{post?.body}</Text>
@@ -70,3 +70,5 @@ export default function App() {
     </View>
   );
 }
+
+export default Home;

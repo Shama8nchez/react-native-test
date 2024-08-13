@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Alert } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../../store/post-slice';
+import { getPostsThunk } from '../../store/post-slice';
 import { Form } from '../ui/form';
 import { Post } from '../ui/post';
 
@@ -37,7 +37,7 @@ export function Home() {
   const listOfPosts = useSelector(state => state.posts.posts);
 
   useEffect(() => {
-    dispatch(getPosts()).catch(error => Alert.alert(error.message));
+    dispatch(getPostsThunk()).catch(error => Alert.alert(error.message));
   }, []);
 
   return (

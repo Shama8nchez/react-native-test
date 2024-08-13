@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { createPost } from '../../store/post-slice';
+import { createPostThunk } from '../../store/post-slice';
 
 const styles = StyleSheet.create({
   form: {
@@ -48,7 +48,7 @@ export function Form() {
       />
       <Button
         title="Create post"
-        onPress={() => dispatch(createPost({ id: Date.now(), title, body }))}
+        onPress={() => dispatch(createPostThunk({ id: Date.now(), title, body }))}
       />
     </View>
   );

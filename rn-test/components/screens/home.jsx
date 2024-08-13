@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { Button, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../store/postSlice';
+import { Form } from '../ui/form';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,21 +13,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 
-  form: {
-    marginBottom: 15,
-  },
-
   title: {
     fontSize: 20,
     marginBottom: 10,
-  },
-
-  textInput: {
-    padding: 5,
-    marginBottom: 10,
-    borderColor: '#111111',
-    borderStyle: 'solid',
-    borderWidth: 1,
   },
 
   post: {
@@ -52,12 +41,7 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.form}>
-        <Text style={styles.title}>React Native App</Text>
-        <TextInput style={styles.textInput} placeholder="Title" />
-        <TextInput style={styles.textInput} placeholder="Body" multiline numberOfLines={3} />
-        <Button title="Create post" onPress={() => Alert.alert('Simple Button pressed')} />
-      </View>
+      <Form />
       <View>
         <Text style={styles.title}>List of posts:</Text>
         {listOfPosts?.map(post => (

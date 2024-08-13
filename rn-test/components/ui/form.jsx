@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { createPost } from '../../store/postSlice';
+import { createPost } from '../../store/post-slice';
 
 const styles = StyleSheet.create({
   form: {

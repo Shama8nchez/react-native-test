@@ -3,8 +3,9 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Alert } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../../store/postSlice';
+import { getPosts } from '../../store/post-slice';
 import { Form } from '../ui/form';
+import { Post } from '../ui/post';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,15 +43,10 @@ export function Home() {
   return (
     <View style={styles.container}>
       <Form />
-      <View>
-        <Text style={styles.title}>List of posts:</Text>
-        {listOfPosts?.map(post => (
-          <View style={styles.post} key={post.id}>
-            <Text style={styles.postTitle}>{post?.title}</Text>
-            <Text>{post?.body}</Text>
-          </View>
-        ))}
-      </View>
+      <Text style={styles.title}>List of posts:</Text>
+      {listOfPosts?.map(post => (
+        <Post key={post.id} post={post} />
+      ))}
     </View>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { deletePost } from '../../store/post-slice';
 
 const styles = StyleSheet.create({
   post: {
@@ -17,10 +19,12 @@ const styles = StyleSheet.create({
 });
 
 export function Post({ post }) {
+  const dispatch = useDispatch();
   return (
     <View style={styles.post}>
       <Text style={styles.postTitle}>{post.title}</Text>
       <Text>{post.body}</Text>
+      <Button title="Delete" onPress={() => dispatch(deletePost(post.id))} />
     </View>
   );
 }

@@ -24,6 +24,16 @@ export const postAPI = {
     }
     throw new Error('Something wrong');
   },
+
+  async deletePost(id) {
+    const response = await fetch(`${SERVER_URL}/posts/${id}`, {
+      method: 'DELETE',
+    });
+    if (response.status === RESPONSE_CODE.SUCCESS) {
+      return { id };
+    }
+    throw new Error('Something wrong');
+  },
 };
 
 export default postAPI;

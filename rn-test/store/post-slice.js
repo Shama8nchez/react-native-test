@@ -6,6 +6,8 @@ export const getPosts = createAsyncThunk('posts/getPosts', postAPI.getPosts);
 
 export const createPost = createAsyncThunk('posts/createPost', postAPI.createPost);
 
+export const deletePost = createAsyncThunk('posts/deletePost', postAPI.deletePost);
+
 const initialState = {
   posts: [],
   isLoading: false,
@@ -35,6 +37,17 @@ export const postsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(createPost.rejected, state => {
+        state.isLoading = false;
+        throw new Error('Something is wrong. Try later.');
+      })
+      .addCase(deletePost.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.posts = state.posts.filter(post => post.id !== action.payload.id);
+        state.isLoading = false;
+      })
+      .addCase(deletePost.rejected, state => {
         state.isLoading = false;
         throw new Error('Something is wrong. Try later.');
       });

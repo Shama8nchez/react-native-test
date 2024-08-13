@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { createPost } from '../../store/postSlice';
 
 const styles = StyleSheet.create({
   form: {
@@ -25,6 +27,8 @@ export function Form() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.form}>
       <Text style={styles.title}>React Native App</Text>
@@ -42,7 +46,10 @@ export function Form() {
         onChangeText={setBody}
         value={body}
       />
-      <Button title="Create post" onPress={() => Alert.alert('Simple Button pressed')} />
+      <Button
+        title="Create post"
+        onPress={() => dispatch(createPost({ id: new Date(), title, body }))}
+      />
     </View>
   );
 }

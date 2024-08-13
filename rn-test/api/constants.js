@@ -3,6 +3,7 @@ export const SERVER_URL =
 
 export const RESPONSE_CODE = {
   SUCCESS: 200,
+  CREATED: 201,
 };
 
 export default {

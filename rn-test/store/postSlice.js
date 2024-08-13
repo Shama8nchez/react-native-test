@@ -4,6 +4,8 @@ import { postAPI } from '../api/post-api';
 
 export const getPosts = createAsyncThunk('posts/getPosts', postAPI.getPosts);
 
+export const createPost = createAsyncThunk('posts/createPost', postAPI.createPost);
+
 const initialState = {
   posts: [],
   isLoading: false,
@@ -22,6 +24,17 @@ export const postsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getPosts.rejected, state => {
+        state.isLoading = false;
+        throw new Error('Something is wrong. Try later.');
+      })
+      .addCase(createPost.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(createPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload);
+        state.isLoading = false;
+      })
+      .addCase(createPost.rejected, state => {
         state.isLoading = false;
         throw new Error('Something is wrong. Try later.');
       });

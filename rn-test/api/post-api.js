@@ -9,6 +9,21 @@ export const postAPI = {
     }
     throw new Error('Something wrong');
   },
+
+  async createPost(body) {
+    const response = await fetch(`${SERVER_URL}/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.status === RESPONSE_CODE.CREATED) {
+      const data = await response.json();
+      return data;
+    }
+    throw new Error('Something wrong');
+  },
 };
 
 export default postAPI;

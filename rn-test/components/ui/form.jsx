@@ -48,7 +48,7 @@ export function Form() {
       />
       <Button
         title="Create post"
-        onPress={() => dispatch(createPost({ id: new Date(), title, body }))}
+        onPress={() => dispatch(createPost({ id: Date.now(), title, body }))}
       />
     </View>
   );

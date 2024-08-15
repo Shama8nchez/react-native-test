@@ -34,6 +34,21 @@ export const postAPI = {
     }
     throw new Error('Something wrong');
   },
+
+  async editPost(id, body) {
+    const response = await fetch(`${SERVER_URL}/posts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.status === RESPONSE_CODE.SUCCESS) {
+      const data = await response.json();
+      return data;
+    }
+    throw new Error('Something wrong');
+  },
 };
 
 export default postAPI;

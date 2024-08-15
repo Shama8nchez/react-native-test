@@ -8,6 +8,8 @@ export const createPostThunk = createAsyncThunk('posts/createPost', postAPI.crea
 
 export const deletePostThunk = createAsyncThunk('posts/deletePost', postAPI.deletePost);
 
+export const editPostThunk = createAsyncThunk('posts/editPost', postAPI.editPost);
+
 const initialState = {
   posts: [],
   isLoading: false,
@@ -51,15 +53,29 @@ export const postsSlice = createSlice({
       .addCase(deletePostThunk.rejected, state => {
         state.isLoading = false;
         throw new Error('Something is wrong. Try later.');
+      })
+      .addCase(editPostThunk.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(editPostThunk.fulfilled, (state, action) => {
+        state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(editPostThunk.rejected, state => {
+        state.isLoading = false;
+        throw new Error('Something is wrong. Try later.');
       });
   },
   reducers: {
     deletePost(state, action) {
       state.posts = state.posts.filter(post => post.id !== action.payload.id);
     },
+    editPost(state, action) {
+      state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;
+    },
   },
 });
 
-export const { deletePost } = postsSlice.actions;
+export const { deletePost, editPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

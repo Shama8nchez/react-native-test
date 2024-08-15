@@ -37,7 +37,7 @@ export function Home() {
   const listOfPosts = useSelector(state => state.posts.posts);
 
   useEffect(() => {
-    dispatch(getPostsThunk()).catch(error => Alert.alert(error.message));
+    dispatch(getPostsThunk()).catch(error => Alert.alert('Error', error.message));
   }, []);
 
   return (

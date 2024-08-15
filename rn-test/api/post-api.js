@@ -1,4 +1,4 @@
-import { RESPONSE_CODE, SERVER_URL } from './constants';
+import { ERROR_MESSAGE, RESPONSE_CODE, SERVER_URL } from './constants';
 
 export const postAPI = {
   async getPosts() {
@@ -7,7 +7,7 @@ export const postAPI = {
       const data = await response.json();
       return data;
     }
-    throw new Error('Something wrong');
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.GET}`);
   },
 
   async createPost(body) {
@@ -22,7 +22,7 @@ export const postAPI = {
       const data = await response.json();
       return data;
     }
-    throw new Error('Something wrong');
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.CREATE}`);
   },
 
   async deletePost(id) {
@@ -32,7 +32,7 @@ export const postAPI = {
     if (response.status === RESPONSE_CODE.SUCCESS) {
       return { id };
     }
-    throw new Error('Something wrong');
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.DELETE}`);
   },
 
   async editPost(id, body) {
@@ -47,7 +47,7 @@ export const postAPI = {
       const data = await response.json();
       return data;
     }
-    throw new Error('Something wrong');
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.EDIT}`);
   },
 };
 

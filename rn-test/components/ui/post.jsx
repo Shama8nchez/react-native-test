@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, deletePostThunk, editPost, editPostThunk } from '../../store/post-slice';
+import { MESSAGE } from '../../api/constants';
 
 const styles = StyleSheet.create({
   post: {
@@ -42,17 +43,29 @@ export function Post({ post }) {
   const [isEditable, setIsEditable] = useState(false);
 
   const dispatch = useDispatch();
-  const postsIds = useSelector(state => state.posts.postsIds);
 
   const handleDeletePost = () => {
-    if (postsIds?.includes(post.id)) dispatch(deletePostThunk(post.id));
-    else dispatch(deletePost({ id: post.id }));
+    dispatch(deletePostThunk(post.id)).catch(error =>
+      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_DELETE}`, [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => dispatch(deletePost({ id: post.id })) },
+      ]),
+    );
   };
 
   const handleEditPost = () => {
-    if (postsIds?.includes(post.id)) dispatch(editPostThunk(post.id));
-    else dispatch(editPost({ id: post.id }));
-    setIsEditable(false);
+    dispatch(editPostThunk(post.id)).catch(error =>
+      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT}`, [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => dispatch(editPost({ id: post.id })) },
+      ]),
+    );
   };
 
   return (
@@ -71,8 +84,11 @@ export function Post({ post }) {
         editable={isEditable}
       />
       <View style={styles.buttonContainer}>
-        {!isEditable && <Button title="Edit" onPress={() => setIsEditable(true)} />}
-        {isEditable && <Button title="Save" onPress={handleEditPost} />}
+        {isEditable ? (
+          <Button title="Save" onPress={handleEditPost} />
+        ) : (
+          <Button title="Edit" onPress={() => setIsEditable(true)} />
+        )}
         <Button title="Delete" onPress={handleDeletePost} />
       </View>
     </View>

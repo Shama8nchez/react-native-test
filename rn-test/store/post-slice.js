@@ -25,12 +25,11 @@ export const postsSlice = createSlice({
       })
       .addCase(getPostsThunk.fulfilled, (state, action) => {
         state.posts = action.payload;
-        state.postsIds = action.payload.map(post => post.id);
         state.isLoading = false;
       })
-      .addCase(getPostsThunk.rejected, state => {
+      .addCase(getPostsThunk.rejected, (state, payload) => {
         state.isLoading = false;
-        throw new Error('Something is wrong. Try later.');
+        throw new Error(payload.error.message);
       })
       .addCase(createPostThunk.pending, state => {
         state.isLoading = true;
@@ -39,9 +38,9 @@ export const postsSlice = createSlice({
         state.posts.push(action.payload);
         state.isLoading = false;
       })
-      .addCase(createPostThunk.rejected, state => {
+      .addCase(createPostThunk.rejected, (state, payload) => {
         state.isLoading = false;
-        throw new Error('Something is wrong. Try later.');
+        throw new Error(payload.error.message);
       })
       .addCase(deletePostThunk.pending, state => {
         state.isLoading = true;
@@ -50,9 +49,9 @@ export const postsSlice = createSlice({
         state.posts = state.posts.filter(post => post.id !== action.payload.id);
         state.isLoading = false;
       })
-      .addCase(deletePostThunk.rejected, state => {
+      .addCase(deletePostThunk.rejected, (state, payload) => {
         state.isLoading = false;
-        throw new Error('Something is wrong. Try later.');
+        throw new Error(payload.error.message);
       })
       .addCase(editPostThunk.pending, state => {
         state.isLoading = true;
@@ -61,9 +60,9 @@ export const postsSlice = createSlice({
         state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;
         state.isLoading = false;
       })
-      .addCase(editPostThunk.rejected, state => {
+      .addCase(editPostThunk.rejected, (state, payload) => {
         state.isLoading = false;
-        throw new Error('Something is wrong. Try later.');
+        throw new Error(payload.error.message);
       });
   },
   reducers: {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { createPostThunk } from '../../store/post-slice';
 
@@ -29,6 +29,12 @@ export function Form() {
 
   const dispatch = useDispatch();
 
+  const handleCreatePost = () => {
+    dispatch(createPostThunk({ id: Date.now(), title, body })).catch(error =>
+      Alert.alert('Error', error.message),
+    );
+  };
+
   return (
     <View style={styles.form}>
       <Text style={styles.title}>React Native App</Text>
@@ -46,10 +52,7 @@ export function Form() {
         onChangeText={setBody}
         value={body}
       />
-      <Button
-        title="Create post"
-        onPress={() => dispatch(createPostThunk({ id: Date.now(), title, body }))}
-      />
+      <Button title="Create post" onPress={handleCreatePost} />
     </View>
   );
 }

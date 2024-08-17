@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deletePost, deletePostThunk, editPost, editPostThunk } from '../../store/post-slice';
 import { MESSAGE } from '../../api/constants';
 

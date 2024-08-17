@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsThunk } from '../../store/post-slice';
@@ -19,20 +19,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  post: {
-    margin: 5,
-    padding: 5,
-    borderColor: '#444444',
-    borderStyle: 'solid',
-    borderWidth: 1,
+  postContainer: {
+    marginBottom: 10,
   },
 
-  postTitle: {
-    fontWeight: 'bold',
+  navigateTo: {
+    marginRight: 5,
+    fontSize: 16,
+    textAlign: 'right',
+    color: '#1111EE',
+    textDecorationLine: 'underline',
   },
 });
 
-export function Home() {
+export function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const listOfPosts = useSelector(state => state.posts.posts);
 
@@ -41,14 +41,26 @@ export function Home() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Form />
-      <Text style={styles.title}>List of posts:</Text>
-      {listOfPosts?.map(post => (
-        <Post key={post.id} post={post} />
-      ))}
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View>
+          <Form />
+          <Text style={styles.title}>List of posts:</Text>
+          {listOfPosts?.map(post => (
+            <View key={post.id} style={styles.postContainer}>
+              <Post post={post} />
+              <Text
+                onPress={() => navigation.navigate('Post', { id: post.id })}
+                style={styles.navigateTo}
+              >
+                SHOW MORE
+              </Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-export default Home;
+export default HomeScreen;

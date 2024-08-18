@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { Post } from './Post/Post';
-import { Comment } from './Comment/Comment';
+import { CommentSection } from './CommentSection/CommentSection';
+import { getCommentsThunk } from '../../../store/comment-slice';
 
 const styles = StyleSheet.create({
   post: {
@@ -47,14 +49,20 @@ const styles = StyleSheet.create({
 });
 
 export function Card({ post }) {
+  const dispatch = useDispatch();
   const [isShownComments, setIsShownComments] = useState(false);
 
+  const showComments = () => {
+    dispatch(getCommentsThunk(post.id));
+    setIsShownComments(!isShownComments);
+  };
+
   return (
-    <TouchableWithoutFeedback onPress={() => setIsShownComments(!isShownComments)}>
+    <TouchableWithoutFeedback onPress={showComments}>
       <View style={styles.post}>
         <Post post={post} />
-        <View style={{ height: isShownComments ? 'auto' : 0, overflow: 'hidden', transition: 0.3 }}>
-          <Comment post={post} />
+        <View style={{ height: isShownComments ? 'auto' : 0, overflow: 'hidden', paddingTop: 20 }}>
+          <CommentSection post={post} />
         </View>
       </View>
     </TouchableWithoutFeedback>

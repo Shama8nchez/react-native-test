@@ -17,7 +17,7 @@ export const deleteCommentThunk = createAsyncThunk(
 export const editCommentThunk = createAsyncThunk('comments/editComment', commentAPI.editComment);
 
 const initialState = {
-  comments: [],
+  comments: {},
   isLoading: false,
 };
 
@@ -30,7 +30,7 @@ export const commentsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCommentsThunk.fulfilled, (state, action) => {
-        state.posts = action.payload;
+        state.comments[action.meta.arg] = action.payload;
         state.isLoading = false;
       })
       .addCase(getCommentsThunk.rejected, (state, payload) => {

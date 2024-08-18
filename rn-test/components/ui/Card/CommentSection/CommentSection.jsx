@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, deletePostThunk } from '../../../../store/post-slice';
 import { MESSAGE } from '../../../../api/constants';
+import { Comment } from './Comment/Comment';
 
 const styles = StyleSheet.create({
   post: {
@@ -39,16 +40,27 @@ const styles = StyleSheet.create({
   commentForm: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 10,
   },
 
   commentInput: {
     width: '75%',
     padding: 5,
   },
+
+  comment: {
+    paddingTop: 5,
+    paddingBottom: 15,
+    borderColor: '#444444',
+    borderStyle: 'solid',
+    borderBottomWidth: 1,
+  },
 });
 
-export function Comment({ post }) {
+export function CommentSection({ post }) {
   const [title, setTitle] = useState(post.title);
+  const [isEditable, setIsEditable] = useState(false);
+  const comments = useSelector(state => state.comments.comments[post?.id]);
 
   const dispatch = useDispatch();
 
@@ -75,8 +87,11 @@ export function Comment({ post }) {
         />
         <Button title="Send" onPress={handleDeletePost} />
       </View>
+      {comments?.map(comment => (
+        <Comment key={comment.id} comment={comment} style={styles.comment} />
+      ))}
     </>
   );
 }
 
-export default Comment;
+export default CommentSection;

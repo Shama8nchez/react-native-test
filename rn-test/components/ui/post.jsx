@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 
-import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
+import {
+  Alert,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { useDispatch } from 'react-redux';
 import { deletePost, deletePostThunk, editPost, editPostThunk } from '../../store/post-slice';
 import { MESSAGE } from '../../api/constants';
@@ -35,12 +43,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
+  commentForm: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  commentInput: {
+    width: '75%',
+    padding: 5,
+  },
 });
 
 export function Post({ post }) {
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
   const [isEditable, setIsEditable] = useState(false);
+  const [isShownComments, setIsShownComments] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,29 +88,43 @@ export function Post({ post }) {
   };
 
   return (
-    <View style={styles.post}>
-      <TextInput
-        style={{ ...styles.postTitle, color: '#000', borderWidth: isEditable ? 1 : 0 }}
-        onChangeText={setTitle}
-        value={title}
-        editable={isEditable}
-      />
-      <TextInput
-        style={{ ...styles.postBody, color: '#000', borderWidth: isEditable ? 1 : 0 }}
-        onChangeText={setBody}
-        value={body}
-        multiline
-        editable={isEditable}
-      />
-      <View style={styles.buttonContainer}>
-        {isEditable ? (
-          <Button title="Save" onPress={handleEditPost} />
-        ) : (
-          <Button title="Edit" onPress={() => setIsEditable(true)} />
-        )}
-        <Button title="Delete" onPress={handleDeletePost} />
+    <TouchableWithoutFeedback onPress={() => setIsShownComments(!isShownComments)}>
+      <View style={styles.post}>
+        <TextInput
+          style={{ ...styles.postTitle, color: '#000', borderWidth: isEditable ? 1 : 0 }}
+          onChangeText={setTitle}
+          value={title}
+          editable={isEditable}
+        />
+        <TextInput
+          style={{ ...styles.postBody, color: '#000', borderWidth: isEditable ? 1 : 0 }}
+          onChangeText={setBody}
+          value={body}
+          multiline
+          editable={isEditable}
+        />
+        <View style={styles.buttonContainer}>
+          {isEditable ? (
+            <Button title="Save" onPress={handleEditPost} />
+          ) : (
+            <Button title="Edit" onPress={() => setIsEditable(true)} />
+          )}
+          <Button title="Delete" onPress={handleDeletePost} />
+        </View>
+        <View style={{ height: isShownComments ? 'auto' : 0, overflow: 'hidden', transition: 0.3 }}>
+          <Text style={styles.postTitle}>Comments:</Text>
+          <View style={styles.commentForm}>
+            <TextInput
+              style={{ ...styles.commentInput, color: '#000', borderWidth: 1 }}
+              onChangeText={setTitle}
+              value={title}
+              editable={isEditable}
+            />
+            <Button title="Send" onPress={handleDeletePost} />
+          </View>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 
   postContainer: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
 
   navigateTo: {

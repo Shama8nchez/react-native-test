@@ -4,8 +4,8 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View, Alert } from 'react-n
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsThunk } from '../../store/post-slice';
-import { Form } from '../ui/form';
-import { Post } from '../ui/post';
+import { Form } from '../ui/Form/Form';
+import { Card } from '../ui/Card/Card';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +48,7 @@ export function HomeScreen({ navigation }) {
           <Text style={styles.title}>List of posts:</Text>
           {listOfPosts?.map(post => (
             <View key={post.id} style={styles.postContainer}>
-              <Post post={post} />
+              <Card post={post} />
               <Text
                 onPress={() => navigation.navigate('Post', { id: post.id })}
                 style={styles.navigateTo}

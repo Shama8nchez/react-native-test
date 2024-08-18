@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { createPostThunk } from '../../store/post-slice';
+import { createPostThunk } from '../../../store/post-slice';
 
 const styles = StyleSheet.create({
   form: {

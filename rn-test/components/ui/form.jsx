@@ -30,9 +30,12 @@ export function Form() {
   const dispatch = useDispatch();
 
   const handleCreatePost = () => {
-    dispatch(createPostThunk({ id: Date.now(), title, body })).catch(error =>
-      Alert.alert('Error', error.message),
-    );
+    dispatch(createPostThunk({ id: Date.now(), title, body }))
+      .then(() => {
+        setTitle('');
+        setBody('');
+      })
+      .catch(error => Alert.alert('Error', error.message));
   };
 
   return (

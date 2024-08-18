@@ -76,15 +76,17 @@ export function Post({ post }) {
   };
 
   const handleEditPost = () => {
-    dispatch(editPostThunk(post.id)).catch(error =>
-      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT}`, [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        { text: 'OK', onPress: () => dispatch(editPost({ id: post.id })) },
-      ]),
-    );
+    dispatch(editPostThunk(post.id))
+      .catch(error =>
+        Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT}`, [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          { text: 'OK', onPress: () => dispatch(editPost({ id: post.id })) },
+        ]),
+      )
+      .finally(() => setIsEditable(false));
   };
 
   return (

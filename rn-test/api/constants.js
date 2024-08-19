@@ -8,6 +8,7 @@ export const RESPONSE_CODE = {
 
 export const ERROR_MESSAGE = {
   GET: 'Something is wrong. Try later.',
+  NO_POST: 'No post with such id on server',
   CREATE_POST: "Post wasn't created!",
   DELETE_POST: "Post wasn't deleted!",
   EDIT_POST: "Post wasn't edited!",

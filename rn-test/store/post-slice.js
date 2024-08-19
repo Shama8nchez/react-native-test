@@ -24,7 +24,7 @@ export const postsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getPostThunk.pending, state => {
-        state.isLoading = true;
+        state.post = null;
       })
       .addCase(getPostThunk.fulfilled, (state, action) => {
         state.post = action.payload;

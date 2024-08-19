@@ -16,7 +16,7 @@ export const postAPI = {
       const data = await response.json();
       return data;
     }
-    throw new Error(`${response.status}. ${ERROR_MESSAGE.GET}`);
+    throw new Error(`${ERROR_MESSAGE.NO_POST}`);
   },
 
   async createPost(body) {

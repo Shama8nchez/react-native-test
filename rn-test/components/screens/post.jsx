@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,15 +32,22 @@ const styles = StyleSheet.create({
 export function PostScreen({ route }) {
   const dispatch = useDispatch();
   const post = useSelector(state => state.posts.post);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    dispatch(getPostThunk(route.params.id));
+    dispatch(getPostThunk(route.params.id)).catch(error_ => setError(error_.message));
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{post?.title}</Text>
-      <Text style={styles.title}>{post?.body}</Text>
+      {error ? (
+        <Text style={styles.title}>{error}</Text>
+      ) : (
+        <>
+          <Text style={styles.title}>{post?.title}</Text>
+          <Text style={styles.title}>{post?.body}</Text>
+        </>
+      )}
     </View>
   );
 }

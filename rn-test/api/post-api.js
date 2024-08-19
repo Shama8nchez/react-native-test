@@ -35,8 +35,8 @@ export const postAPI = {
     throw new Error(`${response.status}. ${ERROR_MESSAGE.DELETE_POST}`);
   },
 
-  async editPost(id, body) {
-    const response = await fetch(`${SERVER_URL}/posts/${id}`, {
+  async editPost(body) {
+    const response = await fetch(`${SERVER_URL}/posts/${body.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

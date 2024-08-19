@@ -114,7 +114,11 @@ export function Comment({ comment }) {
       <View style={styles.buttonContainer}>
         {isEditable ? (
           <View style={{ ...styles.buttonContainer, gap: 5 }}>
-            <Button title="Save" onPress={handleSaveComment} />
+            <Button
+              title="Save"
+              onPress={handleSaveComment}
+              disabled={text === '' || text === comment.text}
+            />
             <Button
               title="Cancel"
               onPress={() => {

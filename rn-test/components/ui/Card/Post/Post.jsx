@@ -99,7 +99,7 @@ export function Post({ post }) {
       )}
       <View style={styles.buttonContainer}>
         {isEditable ? (
-          <Button title="Save" onPress={handleEditPost} />
+          <Button title="Save" onPress={handleEditPost} disabled={title === '' || body === ''} />
         ) : (
           <Button title="Edit" onPress={() => setIsEditable(true)} />
         )}

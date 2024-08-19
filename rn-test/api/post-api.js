@@ -22,7 +22,7 @@ export const postAPI = {
       const data = await response.json();
       return data;
     }
-    throw new Error(`${response.status}. ${ERROR_MESSAGE.CREATE}`);
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.CREATE_POST}`);
   },
 
   async deletePost(id) {
@@ -32,7 +32,7 @@ export const postAPI = {
     if (response.status === RESPONSE_CODE.SUCCESS) {
       return { id };
     }
-    throw new Error(`${response.status}. ${ERROR_MESSAGE.DELETE}`);
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.DELETE_POST}`);
   },
 
   async editPost(id, body) {
@@ -47,7 +47,7 @@ export const postAPI = {
       const data = await response.json();
       return data;
     }
-    throw new Error(`${response.status}. ${ERROR_MESSAGE.EDIT}`);
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.EDIT_POST}`);
   },
 };
 

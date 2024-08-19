@@ -3,7 +3,12 @@ import React, { useState } from 'react';
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { MESSAGE } from '../../../../../api/constants';
-import { deleteComment, deleteCommentThunk } from '../../../../../store/comment-slice';
+import {
+  deleteComment,
+  deleteCommentThunk,
+  editComment,
+  editCommentThunk,
+} from '../../../../../store/comment-slice';
 
 const styles = StyleSheet.create({
   post: {
@@ -77,6 +82,24 @@ export function Comment({ post, comment }) {
     );
   };
 
+  const handleSaveComment = () => {
+    dispatch(editCommentThunk({ id: comment.id, postId: comment.postId, text }))
+      .catch(error =>
+        Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT}`, [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: () => setText(comment.text),
+          },
+          {
+            text: 'OK',
+            onPress: () => dispatch(editComment({ id: comment.id, postId: comment.postId, text })),
+          },
+        ]),
+      )
+      .finally(() => setIsEditable(false));
+  };
+
   return (
     <View style={styles.comment}>
       {isEditable ? (
@@ -91,7 +114,7 @@ export function Comment({ post, comment }) {
       <View style={styles.buttonContainer}>
         {isEditable ? (
           <View style={{ ...styles.buttonContainer, gap: 5 }}>
-            <Button title="Save" onPress={() => {}} />
+            <Button title="Save" onPress={handleSaveComment} />
             <Button
               title="Cancel"
               onPress={() => {

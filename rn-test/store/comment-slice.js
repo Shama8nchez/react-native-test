@@ -65,7 +65,9 @@ export const commentsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(editCommentThunk.fulfilled, (state, action) => {
-        state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;
+        state.comments[action.payload.postId][
+          state.comments[action.payload.postId].map(item => item.id).indexOf(action.payload.id)
+        ] = action.payload;
         state.isLoading = false;
       })
       .addCase(editCommentThunk.rejected, (state, payload) => {
@@ -80,7 +82,9 @@ export const commentsSlice = createSlice({
       );
     },
     editComment(state, action) {
-      state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;
+      state.comments[action.payload.postId][
+        state.comments[action.payload.postId].map(item => item.id).indexOf(action.payload.id)
+      ] = action.payload;
     },
   },
 });

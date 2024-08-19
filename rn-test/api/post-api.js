@@ -10,6 +10,15 @@ export const postAPI = {
     throw new Error(`${response.status}. ${ERROR_MESSAGE.GET}`);
   },
 
+  async getPost(id) {
+    const response = await fetch(`${SERVER_URL}/posts/${id}`);
+    if (response.status === RESPONSE_CODE.SUCCESS) {
+      const data = await response.json();
+      return data;
+    }
+    throw new Error(`${response.status}. ${ERROR_MESSAGE.GET}`);
+  },
+
   async createPost(body) {
     const response = await fetch(`${SERVER_URL}/posts`, {
       method: 'POST',

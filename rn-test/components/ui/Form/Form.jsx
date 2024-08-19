@@ -6,6 +6,7 @@ import { createPostThunk } from '../../../store/post-slice';
 
 const styles = StyleSheet.create({
   form: {
+    margin: 5,
     marginBottom: 15,
   },
 

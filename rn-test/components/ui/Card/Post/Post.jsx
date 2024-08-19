@@ -46,7 +46,7 @@ export function Post({ post }) {
 
   const handleDeletePost = () => {
     dispatch(deletePostThunk(post.id)).catch(error =>
-      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_DELETE}`, [
+      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_DELETE_POST}`, [
         {
           text: 'Cancel',
           style: 'cancel',
@@ -59,7 +59,7 @@ export function Post({ post }) {
   const handleEditPost = () => {
     dispatch(editPostThunk({ id: post.id, title, body }))
       .catch(error =>
-        Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT}`, [
+        Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT_POST}`, [
           {
             text: 'Cancel',
             onPress: () => {

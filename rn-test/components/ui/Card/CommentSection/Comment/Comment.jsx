@@ -69,7 +69,7 @@ export function Comment({ comment }) {
 
   const handleDeleteComment = () => {
     dispatch(deleteCommentThunk({ id: comment.id, postId: comment.postId })).catch(error =>
-      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_DELETE}`, [
+      Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_DELETE_COMMENT}`, [
         {
           text: 'Cancel',
           style: 'cancel',
@@ -85,7 +85,7 @@ export function Comment({ comment }) {
   const handleSaveComment = () => {
     dispatch(editCommentThunk({ id: comment.id, postId: comment.postId, text }))
       .catch(error =>
-        Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT}`, [
+        Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_EDIT_COMMENT}`, [
           {
             text: 'Cancel',
             style: 'cancel',

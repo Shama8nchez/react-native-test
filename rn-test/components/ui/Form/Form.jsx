@@ -55,7 +55,11 @@ export function Form() {
         onChangeText={setBody}
         value={body}
       />
-      <Button title="Create post" onPress={handleCreatePost} />
+      <Button
+        title="Create post"
+        onPress={handleCreatePost}
+        disabled={title === '' || body === ''}
+      />
     </View>
   );
 }

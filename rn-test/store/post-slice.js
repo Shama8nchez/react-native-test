@@ -15,7 +15,6 @@ export const editPostThunk = createAsyncThunk('posts/editPost', postAPI.editPost
 const initialState = {
   post: null,
   posts: [],
-  isLoading: false,
 };
 
 export const postsSlice = createSlice({
@@ -28,55 +27,33 @@ export const postsSlice = createSlice({
       })
       .addCase(getPostThunk.fulfilled, (state, action) => {
         state.post = action.payload;
-        state.isLoading = false;
       })
-      .addCase(getPostThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
-      })
-      .addCase(getPostsThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(getPostThunk.rejected, action => {
+        throw new Error(action.error.message);
       })
       .addCase(getPostsThunk.fulfilled, (state, action) => {
         state.posts = action.payload;
-        state.isLoading = false;
       })
-      .addCase(getPostsThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
-      })
-      .addCase(createPostThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(getPostsThunk.rejected, action => {
+        throw new Error(action.error.message);
       })
       .addCase(createPostThunk.fulfilled, (state, action) => {
         state.posts.push(action.payload);
-        state.isLoading = false;
       })
-      .addCase(createPostThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
-      })
-      .addCase(deletePostThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(createPostThunk.rejected, action => {
+        throw new Error(action.error.message);
       })
       .addCase(deletePostThunk.fulfilled, (state, action) => {
         state.posts = state.posts.filter(post => post.id !== action.payload.id);
-        state.isLoading = false;
       })
-      .addCase(deletePostThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
-      })
-      .addCase(editPostThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(deletePostThunk.rejected, action => {
+        throw new Error(action.error.message);
       })
       .addCase(editPostThunk.fulfilled, (state, action) => {
         state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;
-        state.isLoading = false;
       })
-      .addCase(editPostThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
+      .addCase(editPostThunk.rejected, action => {
+        throw new Error(action.error.message);
       });
   },
   reducers: {

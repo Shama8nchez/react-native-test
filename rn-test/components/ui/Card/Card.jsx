@@ -14,38 +14,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
   },
-
-  postTitle: {
-    marginBottom: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderColor: '#111111',
-    borderStyle: 'solid',
-    fontWeight: 'bold',
-  },
-
-  postBody: {
-    marginBottom: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderColor: '#111111',
-    borderStyle: 'solid',
-  },
-
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  commentForm: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  commentInput: {
-    width: '75%',
-    padding: 5,
-  },
 });
 
 export function Card({ post }) {

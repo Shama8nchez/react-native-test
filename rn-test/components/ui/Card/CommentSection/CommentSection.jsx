@@ -6,14 +6,6 @@ import { Comment } from './Comment/Comment';
 import { createCommentThunk } from '../../../../store/comment-slice';
 
 const styles = StyleSheet.create({
-  post: {
-    margin: 5,
-    padding: 5,
-    borderColor: '#444444',
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-
   postTitle: {
     marginBottom: 10,
     paddingLeft: 5,
@@ -21,19 +13,6 @@ const styles = StyleSheet.create({
     borderColor: '#111111',
     borderStyle: 'solid',
     fontWeight: 'bold',
-  },
-
-  postBody: {
-    marginBottom: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderColor: '#111111',
-    borderStyle: 'solid',
-  },
-
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
 
   commentForm: {

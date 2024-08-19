@@ -1,8 +1,8 @@
-import { ERROR_MESSAGE, RESPONSE_CODE, SERVER_URL } from './constants';
+import { ERROR_MESSAGE, RESPONSE_CODE } from './constants';
 
 export const postAPI = {
   async getPosts() {
-    const response = await fetch(`${SERVER_URL}/posts`);
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts`);
     if (response.status === RESPONSE_CODE.SUCCESS) {
       const data = await response.json();
       return data;
@@ -11,7 +11,7 @@ export const postAPI = {
   },
 
   async getPost(id) {
-    const response = await fetch(`${SERVER_URL}/posts/${id}`);
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts/${id}`);
     if (response.status === RESPONSE_CODE.SUCCESS) {
       const data = await response.json();
       return data;
@@ -20,7 +20,7 @@ export const postAPI = {
   },
 
   async createPost(body) {
-    const response = await fetch(`${SERVER_URL}/posts`, {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const postAPI = {
   },
 
   async deletePost(id) {
-    const response = await fetch(`${SERVER_URL}/posts/${id}`, {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts/${id}`, {
       method: 'DELETE',
     });
     if (response.status === RESPONSE_CODE.SUCCESS) {
@@ -45,7 +45,7 @@ export const postAPI = {
   },
 
   async editPost(body) {
-    const response = await fetch(`${SERVER_URL}/posts/${body.id}`, {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts/${body.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

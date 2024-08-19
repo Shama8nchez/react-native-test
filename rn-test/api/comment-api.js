@@ -1,8 +1,8 @@
-import { ERROR_MESSAGE, RESPONSE_CODE, SERVER_URL } from './constants';
+import { ERROR_MESSAGE, RESPONSE_CODE } from './constants';
 
 export const commentAPI = {
   async getComments(id) {
-    const response = await fetch(`${SERVER_URL}/posts/${id}/comments`);
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts/${id}/comments`);
     if (response.status === RESPONSE_CODE.SUCCESS) {
       const data = await response.json();
       return data;
@@ -11,7 +11,7 @@ export const commentAPI = {
   },
 
   async createComment(body) {
-    const response = await fetch(`${SERVER_URL}/comments`, {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const commentAPI = {
   },
 
   async deleteComment({ id, postId }) {
-    const response = await fetch(`${SERVER_URL}/comments/${id}`, {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/comments/${id}`, {
       method: 'DELETE',
     });
     if (response.status === RESPONSE_CODE.SUCCESS) {
@@ -36,7 +36,7 @@ export const commentAPI = {
   },
 
   async editComment(body) {
-    const response = await fetch(`${SERVER_URL}/comments/${body.id}`, {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/comments/${body.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

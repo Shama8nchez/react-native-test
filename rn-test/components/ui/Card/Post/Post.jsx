@@ -6,14 +6,6 @@ import { deletePost, deletePostThunk, editPost, editPostThunk } from '../../../.
 import { MESSAGE } from '../../../../api/constants';
 
 const styles = StyleSheet.create({
-  post: {
-    margin: 5,
-    padding: 5,
-    borderColor: '#444444',
-    borderStyle: 'solid',
-    borderWidth: 1,
-  },
-
   postTitle: {
     marginBottom: 10,
     paddingLeft: 5,

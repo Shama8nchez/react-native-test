@@ -18,7 +18,6 @@ export const editCommentThunk = createAsyncThunk('comments/editComment', comment
 
 const initialState = {
   comments: {},
-  isLoading: false,
 };
 
 export const commentsSlice = createSlice({
@@ -26,53 +25,33 @@ export const commentsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(getCommentsThunk.pending, state => {
-        state.isLoading = true;
-      })
       .addCase(getCommentsThunk.fulfilled, (state, action) => {
         state.comments[action.meta.arg] = action.payload;
-        state.isLoading = false;
       })
-      .addCase(getCommentsThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
-      })
-      .addCase(createCommentThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(getCommentsThunk.rejected, action => {
+        throw new Error(action.error.message);
       })
       .addCase(createCommentThunk.fulfilled, (state, action) => {
         state.comments[action.payload.postId].push(action.payload);
-        state.isLoading = false;
       })
-      .addCase(createCommentThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
-      })
-      .addCase(deleteCommentThunk.pending, state => {
-        state.isLoading = true;
+      .addCase(createCommentThunk.rejected, action => {
+        throw new Error(action.error.message);
       })
       .addCase(deleteCommentThunk.fulfilled, (state, action) => {
         state.comments[action.payload.postId] = state.comments[action.payload.postId].filter(
           comment => comment.id !== action.payload.id,
         );
-        state.isLoading = false;
       })
-      .addCase(deleteCommentThunk.rejected, (state, action) => {
-        state.isLoading = false;
+      .addCase(deleteCommentThunk.rejected, action => {
         throw new Error(action.error.message);
-      })
-      .addCase(editCommentThunk.pending, state => {
-        state.isLoading = true;
       })
       .addCase(editCommentThunk.fulfilled, (state, action) => {
         state.comments[action.payload.postId][
           state.comments[action.payload.postId].map(item => item.id).indexOf(action.payload.id)
         ] = action.payload;
-        state.isLoading = false;
       })
-      .addCase(editCommentThunk.rejected, (state, payload) => {
-        state.isLoading = false;
-        throw new Error(payload.error.message);
+      .addCase(editCommentThunk.rejected, action => {
+        throw new Error(action.error.message);
       });
   },
   reducers: {

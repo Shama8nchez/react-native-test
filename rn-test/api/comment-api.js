@@ -25,12 +25,12 @@ export const commentAPI = {
     throw new Error(`${response.status}. ${ERROR_MESSAGE.CREATE}`);
   },
 
-  async deleteComment(id) {
+  async deleteComment({ id, postId }) {
     const response = await fetch(`${SERVER_URL}/comments/${id}`, {
       method: 'DELETE',
     });
     if (response.status === RESPONSE_CODE.SUCCESS) {
-      return { id };
+      return { id, postId };
     }
     throw new Error(`${response.status}. ${ERROR_MESSAGE.DELETE}`);
   },

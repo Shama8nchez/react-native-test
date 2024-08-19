@@ -4,6 +4,7 @@ import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, deletePostThunk } from '../../../../../store/post-slice';
 import { MESSAGE } from '../../../../../api/constants';
+import { deleteComment, deleteCommentThunk } from '../../../../../store/comment-slice';
 
 const styles = StyleSheet.create({
   post: {
@@ -62,14 +63,17 @@ export function Comment({ post, comment }) {
 
   const dispatch = useDispatch();
 
-  const handleDeletePost = () => {
-    dispatch(deletePostThunk(post.id)).catch(error =>
+  const handleDeleteComment = () => {
+    dispatch(deleteCommentThunk({ id: comment.id, postId: comment.postId })).catch(error =>
       Alert.alert('Error', `${error.message} ${MESSAGE.HANDLE_DELETE}`, [
         {
           text: 'Cancel',
           style: 'cancel',
         },
-        { text: 'OK', onPress: () => dispatch(deletePost({ id: post.id })) },
+        {
+          text: 'OK',
+          onPress: () => dispatch(deleteComment({ id: comment.id, postId: comment.postId })),
+        },
       ]),
     );
   };
@@ -86,7 +90,7 @@ export function Comment({ post, comment }) {
         ) : (
           <Button title="Edit" onPress={() => setIsEditable(true)} />
         )}
-        <Button title="Delete" onPress={handleDeletePost} />
+        <Button title="Delete" onPress={handleDeleteComment} />
       </View>
     </View>
   );

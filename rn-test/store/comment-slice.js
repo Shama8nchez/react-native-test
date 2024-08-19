@@ -52,7 +52,9 @@ export const commentsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(deleteCommentThunk.fulfilled, (state, action) => {
-        state.posts = state.posts.filter(post => post.id !== action.payload.id);
+        state.comments[action.payload.postId] = state.comments[action.payload.postId].filter(
+          comment => comment.id !== action.payload.id,
+        );
         state.isLoading = false;
       })
       .addCase(deleteCommentThunk.rejected, (state, payload) => {
@@ -73,7 +75,9 @@ export const commentsSlice = createSlice({
   },
   reducers: {
     deleteComment(state, action) {
-      state.posts = state.posts.filter(post => post.id !== action.payload.id);
+      state.comments[action.payload.postId] = state.comments[action.payload.postId].filter(
+        comment => comment.id !== action.payload.id,
+      );
     },
     editComment(state, action) {
       state.posts[state.posts.map(item => item.id).indexOf(action.payload.id)] = action.payload;

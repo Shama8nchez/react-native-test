@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, deletePostThunk } from '../../../../store/post-slice';
-import { MESSAGE } from '../../../../api/constants';
 import { Comment } from './Comment/Comment';
 import { createCommentThunk } from '../../../../store/comment-slice';
 
@@ -60,7 +58,6 @@ const styles = StyleSheet.create({
 
 export function CommentSection({ post }) {
   const [text, setText] = useState('');
-  const [isEditable, setIsEditable] = useState(false);
   const comments = useSelector(state => state.comments.comments[post?.id]);
 
   const dispatch = useDispatch();
@@ -82,7 +79,7 @@ export function CommentSection({ post }) {
           onChangeText={setText}
           value={text}
         />
-        <Button title="Send" onPress={handleCreateComment} />
+        <Button title="Send" onPress={handleCreateComment} disabled={text === ''} />
       </View>
       {comments?.map(comment => (
         <Comment key={comment.id} comment={comment} style={styles.comment} />

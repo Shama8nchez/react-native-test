@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Comment({ post, comment }) {
+export function Comment({ comment }) {
   const [isEditable, setIsEditable] = useState(false);
   const [text, setText] = useState(comment.text);
 

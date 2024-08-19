@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Alert, Button, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { deletePost, deletePostThunk, editPost, editPostThunk } from '../../../../store/post-slice';
 import { MESSAGE } from '../../../../api/constants';
@@ -76,19 +76,27 @@ export function Post({ post }) {
 
   return (
     <>
-      <TextInput
-        style={{ ...styles.postTitle, color: '#000', borderWidth: isEditable ? 1 : 0 }}
-        onChangeText={setTitle}
-        value={title}
-        editable={isEditable}
-      />
-      <TextInput
-        style={{ ...styles.postBody, color: '#000', borderWidth: isEditable ? 1 : 0 }}
-        onChangeText={setBody}
-        value={body}
-        multiline
-        editable={isEditable}
-      />
+      {isEditable ? (
+        <TextInput
+          style={{ ...styles.postTitle, color: '#000', borderWidth: isEditable ? 1 : 0 }}
+          onChangeText={setTitle}
+          value={title}
+          editable={isEditable}
+        />
+      ) : (
+        <Text style={styles.postTitle}>{title}</Text>
+      )}
+      {isEditable ? (
+        <TextInput
+          style={{ ...styles.postBody, color: '#000', borderWidth: isEditable ? 1 : 0 }}
+          onChangeText={setBody}
+          value={body}
+          multiline
+          editable={isEditable}
+        />
+      ) : (
+        <Text style={styles.postBody}>{body}</Text>
+      )}
       <View style={styles.buttonContainer}>
         {isEditable ? (
           <Button title="Save" onPress={handleEditPost} />

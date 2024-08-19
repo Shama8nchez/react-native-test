@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Post } from './Post/Post';
 import { CommentSection } from './CommentSection/CommentSection';
 import { getCommentsThunk } from '../../../store/comment-slice';
@@ -51,9 +51,10 @@ const styles = StyleSheet.create({
 export function Card({ post }) {
   const dispatch = useDispatch();
   const [isShownComments, setIsShownComments] = useState(false);
+  const comments = useSelector(state => state.comments.comments[post?.id]);
 
   const showComments = () => {
-    dispatch(getCommentsThunk(post.id));
+    if (!comments) dispatch(getCommentsThunk(post.id));
     setIsShownComments(!isShownComments);
   };
 

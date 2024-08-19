@@ -41,7 +41,7 @@ export const commentsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createCommentThunk.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
+        state.comments[action.payload.postId].push(action.payload);
         state.isLoading = false;
       })
       .addCase(createCommentThunk.rejected, (state, payload) => {
@@ -57,9 +57,9 @@ export const commentsSlice = createSlice({
         );
         state.isLoading = false;
       })
-      .addCase(deleteCommentThunk.rejected, (state, payload) => {
+      .addCase(deleteCommentThunk.rejected, (state, action) => {
         state.isLoading = false;
-        throw new Error(payload.error.message);
+        throw new Error(action.error.message);
       })
       .addCase(editCommentThunk.pending, state => {
         state.isLoading = true;
